@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - error_field
+  - phone_number_field
+  - submit_button
+  - password_field
+  - email_field
+  - lawrence_id_field
+  - username_field
+  - fullname_field
+  - graduation_year_field
+  - name_field
+  - welcome_field
+  - tag1
+  - tag2
+  - content_field
+  - title_field
+  - fm
+  - user
+  - tag_field
+  - drop_down_forum
+  - comment_field
+  - search_field
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - background
+  - foreground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: background
+    uniqueID: 1604441075
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: foreground
+    uniqueID: 1547582813
+    locked: 0
