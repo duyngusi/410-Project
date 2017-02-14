@@ -23,11 +23,13 @@ public class User: MonoBehaviour
     public int curForum;
    public Forum[] forumarray;
     public Post[] postarray;
+    public Report[] reportarray;
    static public string allforum_url = "http://143.44.65.27:8080/RESTLawrenum/api/forum";
    static public string requestpost_url = "http://143.44.65.27:8080/RESTLawrenum/api/handlepost/idforum?idforum=";
    static public string createpost_url = "http://143.44.65.27:8080/RESTLawrenum/api/post";
     static public string reportpost_url = "http://143.44.65.27:8080/RESTLawrenum/api/report";
     static public string searchtag_url =  "http://143.44.65.27:8080/RESTLawrenum/api/handlepost/tag?tag=";
+    static public string allreports_url = "http://143.44.65.27:8080/RESTLawrenum/api/report";
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -152,12 +154,12 @@ public class User: MonoBehaviour
 
         Report newpost = new Report();
         newpost.content = content;
-        newpost.idpost = idpost;
+        newpost.idtarget = idpost;
         newpost.iduser = iduser;
 
 
 
-        string json = "{\"content\":\"" + newpost.content + "\",\"iduser\":\"" + newpost.iduser + "\",\"idtarget\":\"" + newpost.idpost +  "\"}";
+        string json = "{\"content\":\"" + newpost.content + "\",\"iduser\":\"" + newpost.iduser + "\",\"idtarget\":\"" + newpost.idtarget +  "\"}";
         WWW www1;
         Dictionary<string, string> postHeader = new Dictionary<string, string>();
         postHeader.Add("Content-Type", "application/json");
@@ -247,6 +249,8 @@ public class User: MonoBehaviour
                     customButtoni.wordWrap = true;
 
                     GUI.Label(new Rect(500, 260 + 80 * i, 300, 70), postarray[i].fullname, customButtoni);
+                    //show upvote
+                    //GUI.Label(new Rect(650, 260 + 80 * i, 300, 70), postarray[i].upvote.ToString(), customButtoni);
                     if (GUI.Button(new Rect(100, 260 + 80 * i, 300, 70), postarray[i].title, customButtoni))
                     {
                         PlayerPrefs.SetString("title", postarray[i].title);
@@ -260,12 +264,82 @@ public class User: MonoBehaviour
 
                     }
 
+                }
+            }
+        }
 
+
+        else if (sceneName == "ReportingAdminScreen")
+        {
+            if (reportarray != null)
+            {
+                for (int i = 0; i < reportarray.Length; i++)
+                {
+
+                    GUIStyle customButtoni = new GUIStyle("Label");
+                    customButtoni.fontSize = 35;
+                    customButtoni.font = (Font)Resources.Load("Fonts/OpenSans");
+                    customButtoni.normal.textColor = Color.black;
+                    customButtoni.wordWrap = true;
+
+                    GUI.Label(new Rect(500, 260 + 80 * i, 300, 70), reportarray[i].iduser.ToString(), customButtoni);
+                    //show upvote
+                    //GUI.Label(new Rect(650, 260 + 80 * i, 300, 70), postarray[i].upvote.ToString(), customButtoni);
+                    if (GUI.Button(new Rect(100, 260 + 80 * i, 300, 70), reportarray[i].idreport.ToString(), customButtoni))
+                    {
+                        //PlayerPrefs.SetString("title", postarray[i].title);
+                        PlayerPrefs.SetInt("idreport", reportarray[i].idreport);
+                        PlayerPrefs.SetString("content", reportarray[i].content);
+                       PlayerPrefs.SetInt("idtarget", reportarray[i].idtarget);
+                        //PlayerPrefs.SetString("time", postarray[i].time);
+
+
+                       Application.LoadLevel("HandleReportScreen");
+
+
+                    }
 
                 }
             }
         }
+
+
+
+
+
     }
+
+
+    public void requestAllReports()
+    {
+
+       
+        //  string url2 = "user=" + username_input + "&password=" + password_input;
+        // string url = url1 + url2;
+        Debug.Log(allreports_url);
+        WWW www = new WWW(allreports_url);
+        StartCoroutine(WaitForRequestAllReports(www));
+
+   }
+
+    IEnumerator WaitForRequestAllReports(WWW www)
+    {
+        yield return www;
+
+        // check for errors
+        if (www.error == null)
+        {
+
+            Debug.Log("WWW Ok!: " + www.data);
+            reportarray = JsonReader.Deserialize<Report[]>(www.data);
+
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
+    }
+
 
     public void createPost()
     {

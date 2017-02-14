@@ -4,8 +4,8 @@ using UnityEngine;
 
 //Contributed by Yiming Li
 
-public class Post  {
-   public string content { get; set; }
+public class Post {
+    public string content { get; set; }
     public string fullname { get; set; }
     public int idforum { get; set; }
     public int idpost { get; set; }
@@ -13,7 +13,8 @@ public class Post  {
     public string tag { get; set; }
     public string time { get; set; }
     public string title { get; set; }
-   
+    public int upvote { get; set; }
+    public int sticky { get; set; }   
 
     public Post()
     {
@@ -25,6 +26,8 @@ public class Post  {
         tag = "";
         time = "";
         title = "";
+        upvote = 0;
+        sticky = 0;
         // this is the default constructor that JSONFX wanted.
     }
 

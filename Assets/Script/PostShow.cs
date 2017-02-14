@@ -42,11 +42,80 @@ public class PostShow : MonoBehaviour
         originaltext = content;
 
 
-
+            
 
         RequestComment();
+        RequestUpvote();
+    }
+
+    public void sendVote()
+    {
+     
+
+        string json = "{\"iduser\":\"" + iduser + "\",\"idpost\":\"" + idpost +  "\"}";
+
+
+        WWW www1;
+        Dictionary<string, string> postHeader = new Dictionary<string, string>();
+        postHeader.Add("Content-Type", "application/json");
+
+        // convert json string to byte
+        var formData = System.Text.Encoding.UTF8.GetBytes(json);
+
+
+        string voteurl = "http://143.44.65.27:8080/RESTLawrenum/api/vote";
+        www1 = new WWW(voteurl, formData, postHeader);
+        StartCoroutine(WaitForRequestVote(www1));
+
 
     }
+
+    
+
+
+
+    public void RequestUpvote()
+    {
+        string url = "http://143.44.65.27:8080/RESTLawrenum/api/vote?iduser=" + iduser + "&idpost=" + idpost;
+        //  string url2 = "user=" + username_input + "&password=" + password_input;
+        // string url = url1 + url2;
+        Debug.Log(url);
+        WWW www = new WWW(url);
+        StartCoroutine(WaitForRequestVote(www));
+    }
+
+
+    IEnumerator WaitForRequestVote(WWW www)
+    {
+        yield return www;
+
+        // check for errors
+        if (www.error == null)
+        {
+
+            Debug.Log("WWW Ok!: " + www.data);
+            GameObject upvote_button = GameObject.FindGameObjectWithTag("Upvote_Button");
+                Button upvotebutton =  upvote_button.GetComponent<Button>();
+            if (int.Parse(www.data) == 0)
+            {
+                //The user didnt vote
+               
+            }
+            else
+            {
+                //Blur this
+                upvote_button.GetComponent<Image>().color = Color.grey;
+                upvotebutton.interactable = false;
+            }
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + www.error);
+        }
+    }
+
+
+
 
 
 

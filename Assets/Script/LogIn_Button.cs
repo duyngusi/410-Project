@@ -55,9 +55,20 @@ public class LogIn_Button : MonoBehaviour
                     Destroy(userobj);
                 }
 
+                
+
+
+
                 else
               {
-                    Application.LoadLevel("WelcomeScreen"); }
+
+                if (a.type != 2)
+                { Application.LoadLevel("WelcomeScreen"); }
+                else
+                {
+                    Application.LoadLevel("ReportingAdminScreen");
+                }
+            }
             }
         
         else

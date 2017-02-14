@@ -25,6 +25,7 @@ TagManager:
   - drop_down_forum
   - comment_field
   - search_field
+  - Upvote_Button
   layers:
   - Default
   - TransparentFX

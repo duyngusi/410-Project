@@ -23,3 +23,7 @@ EditorBuildSettings:
     path: Assets/ReportScreen.unity
   - enabled: 1
     path: Assets/AddSubForum.unity
+  - enabled: 1
+    path: Assets/ReportingAdminScreen.unity
+  - enabled: 1
+    path: Assets/HandleReportScreen.unity

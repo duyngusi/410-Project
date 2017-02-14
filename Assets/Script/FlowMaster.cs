@@ -36,7 +36,11 @@ public class FlowMaster : MonoBehaviour {
 
         if (sceneName == "WelcomeScreen")
         { userObjScript.requestForum(); }
-    
+
+        if (sceneName == "ReportingAdminScreen")
+        {
+            userObjScript.requestAllReports();
+        }
 
 
         //userObjScript = userObj.GetComponent<User>();
